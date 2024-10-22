@@ -5,17 +5,21 @@ import time
 from commlib.msg import PubSubMessage 
 from commlib.node import Node 
 import streamlit.components.v1 as components
+
+MAX_ARRAY_LEN = 100
 {# Creates brokers dictionary #}
 {%- set brokers_dict = {} -%}
 {%- for broker in model.brokers -%}
     {%- set brokers_dict = brokers_dict.update({broker['name']: broker}) -%}
 {%- endfor -%}
 {%- for component in model.components -%}
-{%-if component.ctype == "Gauge"+%}
+{%-if component.ctype == "Gauge" or component.ctype == "ValueDisplay"+%}
 {{component.name}}_values = []
 {# Creates on_message function for the subscribers #}
 def {{component.name}}_on_message(msg):
-    {{component.name}}_values.append(msg.{{component.attribute}})
+    if len({{component.name}}_values) >= MAX_ARRAY_LEN:
+        {{component.name}}_values.pop()
+    {{component.name}}_values.insert(0, msg.{{component.attribute}})
 
 class {{component.name}}Message(PubSubMessage):
     {{component.attribute}}: float
@@ -81,7 +85,7 @@ def main():
             """
             components.html(f"{htmlstr}", height=0, width=0)
     {%- for component in model.components-%}
-    {%- if component.ctype == "Gauge" -%}
+    {%- if component.ctype == "Gauge" or component.ctype == "ValueDisplay"-%}
     {# Creates and runs the object for each Gauge Node #}
     {{component.name}}_node = {{component.name}}Node()
     {{component.name}}_node.run()
@@ -98,7 +102,7 @@ def main():
     {# Initializes the columns of each row #}
     columns{{row}} = st.columns({{max_columns}})
     {%-for component in model.components-%}
-    {%- if component.ctype == "Gauge" and component.position.r - 1 == row-%}
+    {%- if (component.ctype == "Gauge"  or component.ctype == "ValueDisplay")and component.position.r - 1 == row-%}
     {# Initializes the placeholder of each widget #}
     {{component.name}}_placeholder = columns{{row}}[{{component.position.c - 1}}].empty()
     {%-endif-%}
@@ -124,25 +128,36 @@ def main():
         {# Create the gauge widget for each object #}
         with columns{{row}}[{{component.position.c - 1}}]:
             with {{component.name}}_placeholder.container():
-                {{component.name}}_fig = go.Figure(go.Indicator(
-                    mode="gauge+number",
-                    value={{component.name}}_values.pop(),
-                    title={'text': "{{ component.name }}", 'font': {'size': 24}} if not {{ component.hideTxt }} else None,
-                    gauge={
-                        'axis': {'range': [{{ component.minValue }}, {{ component.maxValue }}]},
-                        'bar': {'color': 'white'},
-                        'steps': [
-                        {%- for step in component.steps -%}
-                            {'range': [{{ step.range[0] }}, {{ step.range[1] }}], 'color': '{{ step.color }}'},
-                        {%- endfor -%}
-                        ],
-                        } 
-                    ))
-                st.plotly_chart({{component.name}}_fig, use_container_width=True)
-            time.sleep(1)
+                if len({{component.name}}_values) > 0:
+                    {{component.name}}_fig = go.Figure(go.Indicator(
+                        mode="gauge+number",
+                        value={{component.name}}_values[0],
+                        title={'text': "{{ component.name }}", 'font': {'size': 24}} if not {{ component.hideTxt }} else None,
+                        gauge={
+                            'axis': {'range': [{{ component.minValue }}, {{ component.maxValue }}]},
+                            'bar': {'color': 'white'},
+                            'steps': [
+                            {%- for step in component.steps -%}
+                                {'range': [{{ step.range[0] }}, {{ step.range[1] }}], 'color': '{{ step.color }}'},
+                            {%- endfor -%}
+                            ],
+                            } 
+                        ))
+                    st.plotly_chart({{component.name}}_fig, use_container_width=True)
+                else:
+                    continue
     {%-endif-%}
+    {% if component.ctype == "ValueDisplay" and component.position.r - 1 == row%}
+        with columns{{row}}[{{component.position.c - 1}}]:
+            with {{component.name}}_placeholder.container():
+                if len({{component.name}}_values) > 0:
+                    st.metric(label="{{component.attribute}}", value={{component.name}}_values[0])
+                else:
+                    continue
+    {% endif %}
     {%-endfor+%}
     {%-endfor%}
+        time.sleep(1)
 
 if __name__ == "__main__":
     main()
