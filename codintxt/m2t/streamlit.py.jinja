@@ -132,7 +132,7 @@ def main():
                     {{component.name}}_fig = go.Figure(go.Indicator(
                         mode="gauge+number",
                         value={{component.name}}_values[0],
-                        title={'text': "{{ component.name }}", 'font': {'size': 24}} if not {{ component.hideTxt }} else None,
+                        title={'text': "{{ component.label }}", 'font': {'size': 24}} if not {{ component.hideTxt }} else None,
                         gauge={
                             'axis': {'range': [{{ component.minValue }}, {{ component.maxValue }}]},
                             'bar': {'color': 'white'},
@@ -151,7 +151,7 @@ def main():
         with columns{{row}}[{{component.position.c - 1}}]:
             with {{component.name}}_placeholder.container():
                 if len({{component.name}}_values) > 0:
-                    st.metric(label="{{component.attribute}}", value={{component.name}}_values[0])
+                    st.metric(label="{{component.label}}", value={{component.name}}_values[0])
                 else:
                     continue
     {% endif %}
