@@ -8,14 +8,14 @@ from setuptools import setup, find_packages
 
 THIS_DIR = os.path.abspath(os.path.dirname(__file__))
 
-VERSIONFILE = os.path.join(THIS_DIR, "codintxt", "__init__.py")
+VERSIONFILE = os.path.join(THIS_DIR, "tctt", "__init__.py")
 VERSION = None
 for line in open(VERSIONFILE, "r").readlines():
     if line.startswith("__version__"):
         VERSION = line.split('"')[1]
 
 if not VERSION:
-    raise RuntimeError("No version defined in codintxt.__init__.py")
+    raise RuntimeError("No version defined in tctt.__init__.py")
 
 
 with open("requirements.txt") as f:
@@ -45,8 +45,8 @@ with open("README.md") as readme_file:
 
 
 setup(
-    author="Konstantinos Panayiotou",
-    author_email="klpanagi@gmail.com",
+    author="Manos Tsardoulias",
+    author_email="evaluate@gmail.com",
     python_requires=">=3.5",
     classifiers=[
         "Development Status :: 3 - Alpha",
@@ -64,12 +64,12 @@ setup(
     license="MIT license",
     long_description=readme,
     package_data={"": ["*.tx"]},
-    keywords="codintxt",
-    name="codintxt",
-    packages=find_packages(include=["codintxt", "codintxt.*"]),
+    keywords="tctt",
+    name="tctt",
+    packages=find_packages(include=["tctt", "tctt.*"]),
     install_requires=required,
     test_suite="tests",
-    url="https://github.com/robotics-4-all/codintxt",
+    url="https://github.com/robotics-4-all/tctt-dsl",
     version=VERSION,
     zip_safe=False,
 )

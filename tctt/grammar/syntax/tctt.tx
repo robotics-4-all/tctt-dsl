@@ -1,0 +1,23 @@
+import utils
+import modules
+
+Model:
+    imports*=Import
+    (
+        (metadata=Metadata)
+        (database=MongoDB)?
+        (sentry=Sentry)?
+        (sendgrid=Sendgrid)?
+        (googleClientId=GoogleClientId)?
+    )#
+;
+
+Metadata:
+    'Metadata'
+    (
+        ('title:' name=STRING)
+        ('description:' description=STRING)?
+        ('version:' version=STRING)?
+    )#
+    'end'
+;

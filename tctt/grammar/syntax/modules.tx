@@ -1,0 +1,44 @@
+import utils 
+
+MongoDB:
+    'MongoDB'
+    (
+        ('uri:' uri=STRING)
+        ('db:' db=STRING)?
+    )#
+    'end'
+;
+
+Sentry:
+    'Sentry'
+    (
+        'Frontend'
+        (
+            ('dsn:' dsn=STRING)
+            ('environment:' environment=STRING)
+        )#
+        'Backend'
+        (
+            ('dsn:' dsn=STRING)
+            ('environment:' environment=STRING)
+        )#
+    )#
+    'end'
+;
+
+Sendgrid:
+    'Sendgrid'
+    (
+        ('api_key:' api_key=STRING)
+        ('from_email:' key=STRING)
+    )#
+    'end'  
+;
+
+GoogleClientId:
+    'GoogleClientId'
+    (
+        ('client_id:' client_id=STRING)
+    )#
+    'end'
+;

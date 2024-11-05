@@ -16,7 +16,7 @@ from textx import (
 )
 from textx.scoping import GlobalModelRepository, ModelRepository
 
-from codintxt.definitions import THIS_DIR, MODEL_REPO_PATH, BUILTIN_MODELS
+from tctt.definitions import THIS_DIR, MODEL_REPO_PATH, BUILTIN_MODELS
 
 pretty.install()
 
@@ -165,7 +165,7 @@ obj_processors = {
 
 def get_metamodel(debug: bool = False, global_repo: bool = False):
     metamodel = metamodel_from_file(
-        join(THIS_DIR, 'grammar', 'codin.tx'),
+        join(THIS_DIR, 'grammar', 'tctt.tx'),
         classes=class_provider,
         auto_init_attributes=True,
         textx_tools_support=True,
@@ -176,7 +176,6 @@ def get_metamodel(debug: bool = False, global_repo: bool = False):
     metamodel.register_model_processor(model_proc)
     metamodel.register_obj_processors(obj_processors)
     return metamodel
-
 
 def get_scode_providers():
     sp = {"*.*": scoping_providers.FQNImportURI(importAs=True)}
@@ -192,13 +191,11 @@ def get_scode_providers():
             join(MODEL_REPO_PATH, "entity", "*.goal"))
     return sp
 
-
 def build_model(model_path: str, debug: bool = False):
     # Parse model
     mm = get_metamodel(debug=debug)
     model = mm.model_from_file(model_path)
     return model
-
 
 @language("codintxt", "*.codin")
 def codintxt_language():

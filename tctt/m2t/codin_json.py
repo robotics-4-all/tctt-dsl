@@ -7,13 +7,11 @@ import json
 
 pretty.install()
 
-
 class Container(BaseModel):
     ctype: str
     name: str
     label: str = ""
     position: Dict[str, Any] = {"x": 0, "y": 0, "w": 0, "h": 0}
-
 
 class Component(BaseModel):
     ctype: str
@@ -22,7 +20,6 @@ class Component(BaseModel):
     topic: str = ""
     broker: str = ""
     position: Dict[str, Any] = {"x": 0, "y": 0, "w": 0, "h": 0}
-
 
 class Gauge(Component):
     attribute: str = ""
@@ -34,19 +31,15 @@ class Gauge(Component):
     hideTxt: bool = False
     unit: str = ""
 
-
 class ValueDisplay(Component):
     attribute: str
     unit: str = ""
 
-
 class JsonViewer(Component):
     attribute: str = ""
 
-
 class AliveDisplay(Component):
     timeout: int = 60
-
 
 class LogsDisplay(Component):
     attribute: str = ""
@@ -61,7 +54,6 @@ class LogsDisplay(Component):
         {"key": "warning", "color": "yellow"},
     ]
 
-
 class Button(Component):
     dynamic: bool = True
     color: str = "white"
@@ -69,19 +61,16 @@ class Button(Component):
     hover: str = "#ff7e33"
     payload: Dict[str, Any]
 
-
 class ButtonGroup(Container):
     alignTxt: str = ""
     alignBtns: str = ""
     buttons: List[Button]
-
 
 class Plot(Component):
     attribute: str = ""
     color: str = "red"
     smooth: bool = False
     ptype: str = "Line"
-
 
 class PlotView(Container):
     plots: List[Plot]
@@ -93,7 +82,6 @@ class PlotView(Container):
     maxValues: int = -1
     legendPosition: str = "topRight"
 
-
 class Broker(BaseModel):
     name: str
     btype: str
@@ -102,19 +90,16 @@ class Broker(BaseModel):
     ssl: Optional[bool] = False
     auth: Dict[str, Any]
 
-
 # Child class does not serialize. Workaround to use the BaseModel
 class MQTTBroker(Broker):
     basePath: Optional[str] = ""
     webPath: Optional[str] = "/mqtt"
     webPort: Optional[int] = 8883
 
-
 class CodinTxtModel(BaseModel):
     brokers: List[Any]
     components: List[Any]
     metadata: Dict[str, Any]
-
 
 def model_2_object(model):
     _brokers = []
@@ -317,7 +302,6 @@ def model_2_object(model):
         },
     )
     return _model
-
 
 def model_2_codin(model) -> Dict[str, Any]:
     _model = model_2_object(model)

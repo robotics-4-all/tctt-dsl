@@ -14,10 +14,10 @@ jobs:
           password: ${{ secrets.SSH_PASSWORD }}
           port: ${{ secrets.SSH_PORT }}
           script: |
-            cd ~/codintxt
+            cd ~/tctt-dsl
             git reset --hard origin/main
-            git pull https://${{ secrets.CLONE_TOKEN }}@github.com/robotics-4-all/codintxt main
-            docker build -t codintxt .
+            git pull https://${{ secrets.CLONE_TOKEN }}@github.com/robotics-4-all/tctt-dsl main
+            docker build -t tctt .
             docker compose down
             docker compose build
             docker compose up -d
