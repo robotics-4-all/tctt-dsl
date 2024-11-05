@@ -19,3 +19,5 @@ Import: 'import' name=STRING;
 Comment: CommentLine | CommentBlock ;
 CommentLine: /\/\/.*?$/;
 CommentBlock: /\/\*(.|\n)*?\*\//;
+
+ColorHex: /\"#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})\"/;

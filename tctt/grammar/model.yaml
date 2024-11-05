@@ -1,0 +1,168 @@
+metadata:
+  title: "TCTT"
+  description: "TCTT stands for Ta Components Tou Thoma."
+  version: "0.0.1"
+
+modules:
+  mongodb:
+    uri: "mongodb://localhost:27017"
+    db: "tctt"
+  sentry:
+    frontend:
+      dsn: "https://<sentry-dsn>"
+      environment: "production"
+    backend:
+      dsn: "https://<sentry-dsn>"
+      environment: "production"
+  sendgrid:
+    api_key: "<sendgrid-api-key>"
+    from_email: "issel@issel.gr"
+  google_client_id: "<google-client-id>"
+
+visuals:
+  logos:
+    dark: "https://<logo-dark-url>"
+    light: "https://<logo-light-url>"
+  icons:
+    - id: "home"
+      url: "https://home-icon-url"
+    - id: "project"
+      url: "https://project-icon-url"
+  images:
+    - id: "project-logo"
+      url: "https://<fig-1-image-url>"
+    - id: "fig-2"
+      url: "https://<fig-2-image-url>"
+  pallete:
+    primary: "#007bff"
+    secondary: "#6c757d"
+    success: "#28a745"
+    danger: "#dc3545"
+    warning: "#ffc107"
+    info: "#17a2b8"
+    light: "#f8f9fa"
+    dark: "#343a40"
+
+main-components:
+  breadcrumps: false
+  navbar: true
+  sidebar: true
+  footer: true
+  websocket: true
+  login: true
+  register: true
+  invite: true
+  reset_password: true
+  broker: true
+  localization: true
+
+data-models:
+  - name: "projects"
+    description: "Projects are the main entities of the application."
+    created_at: true
+    updated_at: true
+    can_be_deleted: false # if false add a field "is_deleted" with type boolean
+    fields:
+      - name: "name"
+        type: "string"
+        description: "The name of the project."
+      - name: "description"
+        type: "string"
+        description: "The description of the project."
+
+sidebar:
+  - name: "Home"
+    icon: "home"
+    link: "/"
+  - name: "Projects"
+    icon: "projects"
+    link: "/projects"
+  - name: "Choose project"
+    icon: "projects"
+    data-items: 
+      source: "projects"
+      name: "name"
+  - name: "Collapsible"
+    icon: "collapsible"
+    items:
+      - name: "Item 1"
+        link: "/item-1"
+      - name: "Item 2"
+        link: "/item-2"
+
+navbar:
+  - name: "Home"
+    icon: "home"
+    link: "/"
+  - name: "Projects"
+    icon: "projects"
+    link: "/projects"
+  - name: "Logout"
+    icon: "logout"
+    link: "/logout"
+
+screens:
+  - name: "Home"
+    url: "/"
+    description: "The home screen of the application."
+    rows:
+      - id: "row-1"
+        align: "center"
+        columns:
+          - id: "column-1"
+            flex: 1
+            width: 12
+            align: "center"
+            justify: "center"
+            components:
+              - id: "header-top"
+                type: "h1"
+                props:
+                  text: "Welcome to TCTT"
+              - id: "logo"
+                type: "image"
+                width: 4
+                props:
+                  image: "project-logo"
+              - id: "button_to_examples"
+                type: "button"
+                width: 3
+                props:
+                  title: "Go to projects"
+                  link: "/projects"
+  - name: "Projects"
+    url: "/projects"
+    description: "The projects screen of the application."
+    rows:
+      - id: "row-2"
+        align: "center"
+        columns:
+          - id: "column-2"
+            flex: 1
+            width: 12
+            align: "center"
+            justify: "center"
+            components:
+              - id: "table-1"
+                type: "table"
+                width: 12
+                props:
+                  data-source: "projects"
+                  pagination: 100
+                  search: true
+                  sort: true
+                  operations:
+                    create: true
+                    update: true
+                    delete: true
+                  columns:
+                    - name: "name"
+                      title: "Name"
+                    - name: "description"
+                      title: "Description"
+              - id: "back_to_home"
+                type: "button"
+                width: 3
+                props:
+                  title: "Back to home"
+                  link: "/"

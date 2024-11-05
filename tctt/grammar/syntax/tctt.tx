@@ -1,23 +1,21 @@
 import utils
 import modules
+import visuals
 
 Model:
     imports*=Import
     (
         (metadata=Metadata)
-        (database=MongoDB)?
-        (sentry=Sentry)?
-        (sendgrid=Sendgrid)?
-        (googleClientId=GoogleClientId)?
+        (mods=Modules)?
+        (visuals=Visuals)?
     )#
 ;
 
 Metadata:
-    'Metadata'
+    'Metadata:'
     (
         ('title:' name=STRING)
         ('description:' description=STRING)?
         ('version:' version=STRING)?
     )#
-    'end'
 ;

@@ -1,0 +1,39 @@
+Metadata:
+    title: "TCTT"
+    description: "TCTT stands for Ta Components Tou Thoma."
+    version: "0.0.1"
+
+Modules:
+    mongoDb:
+        uri: "mongodb://localhost:27017"
+        db: "tctt"
+    sentry:
+        Frontend:
+            dsn: "ds"
+            environment: "production"
+        Backend:
+            dsn: "ds"
+            environment: "production"
+    sendgrid:
+        api_key: "<sendgrid-api-key>"
+        from_email: "issel@issel.gr"
+    googleClientId:
+        client_id: "test"
+
+Visuals:
+    logos:
+        dark: "https://<logo-dark-url>"
+        light: "https://<logo-light-url>"
+    pallete:
+        primary: "#007bff"
+        secondary: "#6c757d"
+        success: "#28a745"
+        danger: "#dc3545"
+        warning: "#ffc107"
+        info: "#17a2b8"
+        light: "#f8f9fa"
+        dark: "#343a40"
+    images:
+        - logo_dark: "https://<fig-1-image-url>"
+        - fig_2: "https://<fig-2-image-url>"
+    

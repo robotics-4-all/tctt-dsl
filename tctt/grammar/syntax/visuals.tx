@@ -1,0 +1,30 @@
+import utils
+
+Logos: (
+    ('dark:' dark=STRING)
+    ('light:' light=STRING)
+)#;
+
+Pallete: (
+    ('primary:' primary=ColorHex)
+    ('secondary:' secondary=ColorHex)
+    ('success:' success=ColorHex)
+    ('danger:' danger=ColorHex)
+    ('warning:' warning=ColorHex)
+    ('info:' info=ColorHex)
+    ('light:' light=ColorHex)
+    ('dark:' dark=ColorHex)
+)#;
+
+Image: (
+    id=ID ":" url=STRING
+);
+
+Visuals:
+    'Visuals:'
+    (
+        ('logos:' logos=Logos)?
+        ('pallete:' pallete=Pallete)?
+        ('images:' '-' images*=Image['-'])?
+    )#
+;
