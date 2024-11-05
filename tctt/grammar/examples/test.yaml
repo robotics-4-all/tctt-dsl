@@ -36,4 +36,16 @@ Visuals:
     images:
         - logo_dark: "https://<fig-1-image-url>"
         - fig_2: "https://<fig-2-image-url>"
-    
+
+MainComponents:
+    breadcrumps: false
+    navbar: true
+    sidebar: true
+    footer: true
+    websocket: true
+    login: true
+    register: true
+    invite: true
+    reset_password: true
+    broker: true
+    localization: true

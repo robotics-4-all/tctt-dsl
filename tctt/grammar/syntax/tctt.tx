@@ -1,6 +1,7 @@
 import utils
 import modules
 import visuals
+import main_components
 
 Model:
     imports*=Import
@@ -8,6 +9,7 @@ Model:
         (metadata=Metadata)
         (mods=Modules)?
         (visuals=Visuals)?
+        (main=MainComponents)?
     )#
 ;
 

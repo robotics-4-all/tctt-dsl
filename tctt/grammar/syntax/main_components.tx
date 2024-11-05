@@ -1,0 +1,18 @@
+import utils
+
+MainComponents: 
+    'MainComponents:'
+    (
+        ('breadcrumps:' breadcrumps=BOOL)?
+        ('navbar:' navbar=BOOL)?
+        ('sidebar:' sidebar=BOOL)?
+        ('footer:' footer=BOOL)?
+        ('websocket:' websocket=BOOL)?
+        ('login:' login=BOOL)?
+        ('register:' register=BOOL)?
+        ('invite:' invite=BOOL)?
+        ('reset_password:' reset_password=BOOL)?
+        ('broker:' broker=BOOL)?
+        ('localization:' localization=BOOL)?
+    )#
+;
