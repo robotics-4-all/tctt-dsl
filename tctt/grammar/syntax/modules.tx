@@ -1,39 +1,29 @@
 import utils 
 
-MongoDB: (
+MongoDB: 'MongoDB' name=ID (
     ('uri:' uri=STRING)
     ('db:' db=STRING)?
-)#;
+)# 'end';
 
 SentrySpe: (
     ('dsn:' dsn=STRING)
     ('environment:' environment=STRING)
 )#;
 
-Sentry: (
+Sentry: 'Sentry'(
     'Frontend:' (
         spec=SentrySpe
     )#
     'Backend:' (
         spec=SentrySpe
     )#
-)#;
+)# 'end';
 
-Sendgrid: (
+Sendgrid: 'Sendgrid'(
     ('api_key:' api_key=STRING)
     ('from_email:' key=STRING)
-)#;
+)# 'end';
 
-GoogleClientId:(
+GoogleClientId: 'GoogleClientId' (
     ('client_id:' client_id=STRING)
-)#;
-
-Modules:
-    'Modules:'
-    (
-        ('mongoDb:' mongoDb=MongoDB)?
-        ('sentry:' sentry=Sentry)?
-        ('sendgrid:' sendgrid=Sendgrid)?
-        ('googleClientId:' googleClientId=GoogleClientId)?       
-    )#
-;
+)# 'end';

@@ -1,0 +1,22 @@
+import utils
+
+Field: (
+    ('name:' name=STRING)
+    ('type:' type=STRING)
+    ('description:' type=STRING)?
+    ('required:' required=BOOL)?
+    ('unique:' unique=BOOL)?
+    ('default:' default=STRING)?
+    ('reference:' reference=STRING)?
+)#;
+
+DataModel: 
+    'DataModel' name=ID
+    (
+        ('description:' description=STRING)?
+        ('timestamps:' timestamps=BOOL)?
+        ('can_delete:' can_delete=BOOL)?
+        ('fields:' '-' fields*=Field['-'])
+    )#
+    'end'
+;

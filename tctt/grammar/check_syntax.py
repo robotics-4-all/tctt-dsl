@@ -5,7 +5,7 @@ meta_model = metamodel_from_file('syntax/tctt.tx')
 
 # Parse the file to be validated
 try:
-    model = meta_model.model_from_file('examples/test.yaml')
+    model = meta_model.model_from_file('examples/test.tctt')
     print("Syntax is valid!")
 except Exception as e:
     print(f"Syntax Error: {e}")

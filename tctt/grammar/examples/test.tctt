@@ -1,0 +1,112 @@
+Metadata
+    title: "TCTT"
+    description: "TCTT stands for Ta Components Tou Thoma."
+    version: "0.0.1"
+end
+
+MongoDB maindb
+    uri: "mongodb://localhost:27017"
+    db: "tctt"
+end
+
+Sentry
+    Frontend:
+        dsn: "ds"
+        environment: "production"
+    Backend:
+        dsn: "ds"
+        environment: "production"
+end
+
+Sendgrid
+    api_key: "test"
+    from_email: "etsardou@gmail.com"
+end
+
+GoogleClientId
+    client_id: "test"
+end
+
+Visuals:
+    logos:
+        dark: "https://<logo-dark-url>"
+        light: "https://<logo-light-url>"
+    pallete:
+        primary: "#007bff"
+        secondary: "#6c757d"
+        success: "#28a745"
+        danger: "#dc3545"
+        warning: "#ffc107"
+        info: "#17a2b8"
+        light: "#f8f9fa"
+        dark: "#343a40"
+    images:
+        - logo_dark: "https://<fig-1-image-url>"
+        - fig_2: "https://<fig-2-image-url>"
+
+MainComponents
+    breadcrumps: false
+    navbar: true
+    sidebar: true
+    footer: true
+    websocket: true
+    login: true
+    register: true
+    invite: true
+    reset_password: true
+    broker: true
+    localization: true
+end
+
+DataModel users
+    description: "Users"
+    timestamps: true
+    can_delete: false
+    fields:
+        -   name: "email"
+            type: "string"
+            required: true
+            unique: true
+        -   name: "password"
+            type: "string"
+            required: true
+        -   name: "first_name"
+            type: "string"
+            required: true
+        -   name: "last_name"
+            type: "string"
+            required: true
+        -   name: "role"
+            type: "string"
+            required: true
+        -   name: "is_deleted"
+            type: "boolean"
+            required: true
+            default: "false"
+end
+
+DataModel projects
+    description: "Projects"
+    timestamps: true
+    can_delete: false
+    fields:
+        -   name: "name"
+            type: "string"
+            required: true
+            unique: true
+        -   name: "description"
+            type: "string"
+            required: true
+        -   name: "created_by"
+            type: "string"
+            required: true
+            reference: "users"
+        -   name: "updated_by"
+            type: "string"
+            required: true
+            reference: "users"
+        -   name: "is_deleted"
+            type: "boolean"
+            required: true
+            default: "false"
+end
