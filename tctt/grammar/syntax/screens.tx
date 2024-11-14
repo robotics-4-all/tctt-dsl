@@ -1,0 +1,11 @@
+import utils
+
+Screen: (
+    'Screen' name=ID
+    (
+        ('title:' title=STRING)
+        ('url:' url=STRING)
+        ('description:' description=STRING)?
+    )#
+    'end'
+);

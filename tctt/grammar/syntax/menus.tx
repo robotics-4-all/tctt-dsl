@@ -1,0 +1,17 @@
+import utils
+import screens
+import urls
+
+MenuItem: "MenuItem" name=ID (
+    ('title:' title=STRING)
+    ('icon:' icon=STRING)
+    ('url:' url=[Url:ID])?
+)# 'end';
+
+Navbar: (
+    'Navbar' items*=[MenuItem:ID][',']
+);
+
+Menubar: (
+    'Menubar'  items*=[MenuItem:ID][',']
+);

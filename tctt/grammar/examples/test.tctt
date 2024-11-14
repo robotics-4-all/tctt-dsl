@@ -27,22 +27,23 @@ GoogleClientId
     client_id: "test"
 end
 
-Visuals:
-    logos:
-        dark: "https://<logo-dark-url>"
-        light: "https://<logo-light-url>"
-    pallete:
-        primary: "#007bff"
-        secondary: "#6c757d"
-        success: "#28a745"
-        danger: "#dc3545"
-        warning: "#ffc107"
-        info: "#17a2b8"
-        light: "#f8f9fa"
-        dark: "#343a40"
-    images:
-        - logo_dark: "https://<fig-1-image-url>"
-        - fig_2: "https://<fig-2-image-url>"
+Image logo_dark "https://<fig-1-image-url>"
+Image logo_light "https://<fig-2-image-url>"
+
+Color primary "#007bff"
+Color secondary "#6c757d"
+Color success "#28a745"
+Color danger "#dc3545"
+Color warning "#ffc107"
+Color info "#17a2b8"
+Color light "#f8f9fa"
+Color dark "#343a40"
+Color my_favorite "#7a01ff"
+
+Logos
+    dark: logo_dark
+    light: logo_light
+end
 
 MainComponents
     breadcrumps: false
@@ -58,15 +59,18 @@ MainComponents
     localization: true
 end
 
-DataModel users
+Attribute email_attr
+    name: "email"
+    type: "string"
+    required: true
+    unique: true
+end
+
+DataModel users_model
     description: "Users"
     timestamps: true
-    can_delete: false
+    allows_deletion: false
     fields:
-        -   name: "email"
-            type: "string"
-            required: true
-            unique: true
         -   name: "password"
             type: "string"
             required: true
@@ -83,12 +87,14 @@ DataModel users
             type: "boolean"
             required: true
             default: "false"
+    attributes:
+        -   email_attr
 end
 
 DataModel projects
     description: "Projects"
     timestamps: true
-    can_delete: false
+    allows_deletion: false
     fields:
         -   name: "name"
             type: "string"
@@ -100,13 +106,48 @@ DataModel projects
         -   name: "created_by"
             type: "string"
             required: true
-            reference: "users"
+            reference: users_model
         -   name: "updated_by"
             type: "string"
             required: true
-            reference: "users"
+            reference: users_model
         -   name: "is_deleted"
             type: "boolean"
             required: true
             default: "false"
 end
+
+Screen users_screen
+    title: "System users"
+    url: "/users"
+    description: "A page where all the system users are shown"
+end
+
+Screen projects_screen
+    title: "System projects"
+    url: "/projects"
+    description: "A page where all the system projects"
+end 
+
+ExternalUrl google "https://www.google.com"
+
+MenuItem users_mi
+    title: "Users"
+    icon: "/icons/users.png"
+    url: users_screen
+end
+
+MenuItem projects_mi
+    title: "Projects"
+    icon: "/icons/projects.png"
+    url: projects_screen
+end
+
+MenuItem google_mi
+    title: "Google"
+    icon: "/icons/google.png"
+    url: google
+end
+
+Menubar users_mi, projects_mi
+Navbar users_mi, google_mi

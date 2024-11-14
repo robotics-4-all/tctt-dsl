@@ -1,0 +1,8 @@
+import utils
+import screens
+
+ExternalUrl: (
+    'ExternalUrl' name=ID url=STRING
+);
+
+Url: ExternalUrl | Screen;

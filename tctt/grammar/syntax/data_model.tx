@@ -7,16 +7,22 @@ Field: (
     ('required:' required=BOOL)?
     ('unique:' unique=BOOL)?
     ('default:' default=STRING)?
-    ('reference:' reference=STRING)?
+    ('reference:' reference=[DataModel:ID])?
 )#;
+
+Attribute: "Attribute" name=ID
+        Field
+    'end'
+;
 
 DataModel: 
     'DataModel' name=ID
     (
         ('description:' description=STRING)?
         ('timestamps:' timestamps=BOOL)?
-        ('can_delete:' can_delete=BOOL)?
-        ('fields:' '-' fields*=Field['-'])
+        ('allows_deletion:' can_delete=BOOL)?
+        ('fields:' '-' fields*=Field['-'])?
+        ('attributes:' '-' attrs*=[Attribute:ID]['-'])?
     )#
     'end'
 ;

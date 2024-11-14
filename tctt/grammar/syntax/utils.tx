@@ -1,4 +1,4 @@
-// FQN: ID('.'ID)*;
+//FQN: ID('.'ID)*;
 ADDRESS_ID: /([0-9a-fA-F]{1,4}:){7,7}[0-9a-fA-F]{1,4}/;
 
 FQN: ID+['.'];

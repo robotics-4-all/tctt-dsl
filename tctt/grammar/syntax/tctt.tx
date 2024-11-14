@@ -3,18 +3,29 @@ import modules
 import visuals
 import main_components
 import data_model
+import menus
+import screens
+import urls
 
 Model:
     imports*=Import
     (
         (metadata=Metadata)
+        (logos=Logos)
         (mongoDb*=MongoDB)?
         (sentry=Sentry)?
         (sendgrid=Sendgrid)?
         (googleClientId=GoogleClientId)?
-        (visuals=Visuals)?
+        (images*=Image)?
+        (colors*=Color)?
         (main=MainComponents)?
+        (attributes*=Attribute)?
         (data*=DataModel)?
+        (screens*=Screen)?
+        (urls*=ExternalUrl)?
+        (menuItems*=MenuItem)?
+        (navbar=Navbar)?
+        (menubar=Menubar)?
     )#
 ;
 
