@@ -10,12 +10,10 @@ MongoDB maindb
 end
 
 Sentry
-    Frontend:
-        dsn: "ds"
-        environment: "production"
-    Backend:
-        dsn: "ds"
-        environment: "production"
+    FrontendDSN: "ds"
+    FrontendEnvironment: "production"
+    BackendDSN: "ds"
+    BackendEnvironment: "production"
 end
 
 Sendgrid
